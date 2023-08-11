@@ -1,0 +1,284 @@
+﻿<Window
+    x:Class="MikuChat.WPF.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MikuChat.WPF"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MikuChat"
+    Width="850"
+    Height="560"
+    MinWidth="850"
+    MinHeight="560"
+    d:DataContext="{x:Type local:MainWindow}"
+    AllowsTransparency="True"
+    Template="{DynamicResource LXWindowTemplate}"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ControlTemplate x:Key="LXWindowTemplate" TargetType="Window">
+            <!--  窗体外边界  -->
+            <Border Padding="{Binding ViewModel.OuterMarginSizeThickness, FallbackValue=10}">
+                <!--  窗体外线  -->
+                <Grid>
+                    <!--  圆角透明度遮罩  -->
+                    <Border
+                        x:Name="Container"
+                        Background="White"
+                        CornerRadius="{Binding ViewModel.WindowCornerRadius, FallbackValue=5}" />
+                    <!--  附有阴影的窗体内边界  -->
+                    <Border Background="White" CornerRadius="{Binding ViewModel.WindowCornerRadius, FallbackValue=5}">
+                        <Border.Effect>
+                            <DropShadowEffect Opacity="0.39" ShadowDepth="0" />
+                        </Border.Effect>
+                    </Border>
+                    <!--  窗体  -->
+                    <Grid>
+                        <!--  圆角裁切  -->
+                        <Grid.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=Container}" />
+                        </Grid.OpacityMask>
+                        <Grid.RowDefinitions>
+                            <!--  标题栏  -->
+                            <RowDefinition Height="{Binding ViewModel.CaptionHeightGridLength, FallbackValue=42}" />
+                            <!--  阴影  -->
+                            <RowDefinition Height="Auto" />
+                            <!--  窗体内容  -->
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <!--  标题栏  -->
+                        <Grid Grid.Column="0" Panel.ZIndex="1">
+                            <Grid.ColumnDefinitions>
+                                <!--  图标  -->
+                                <ColumnDefinition Width="Auto" />
+                                <!--  标题文本  -->
+                                <ColumnDefinition Width="*" />
+                                <!--  窗口按钮  -->
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <!--  图标  -->
+                            <Button
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                Click="OnIconButtonClicked"
+                                Style="{StaticResource SystemIconButton}">
+                                <Image Source="../../Assets/Images/logo.png" />
+                            </Button>
+                            <!--  标题文本  -->
+                            <Viewbox
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Margin="0">
+                                <StackPanel>
+                                    <TextBlock Margin="0,0,0,-3" FontFamily="Microsoft Yahei Light">
+                                        <Run Foreground="{StaticResource MikuGreenBrush}" Text="Miku" /><Run Foreground="{StaticResource MikuRedBrush}" Text="Chat" />
+                                    </TextBlock>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        FontSize="5"
+                                        Foreground="#DDDDDD"
+                                        Text="By RemeaMiku" />
+                                </StackPanel>
+                            </Viewbox>
+                            <!--  窗口按钮  -->
+                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                <Button
+                                    Click="OnMinimizeButtonClicked"
+                                    Content="_"
+                                    Style="{StaticResource WindowMinimizeButton}" />
+                                <Button
+                                    Click="OnMaximizeButtonClicked"
+                                    Content="[ ]"
+                                    Style="{StaticResource WindowMaximizeButton}" />
+                                <Button
+                                    Click="OnCloseButtonClicked"
+                                    Content="X"
+                                    Style="{StaticResource WindowCloseButton}" />
+                            </StackPanel>
+                        </Grid>
+                        <!--  阴影  -->
+                        <Border
+                            Grid.Row="1"
+                            Height="1"
+                            BorderThickness="0,0.2,0,0">
+                            <!--  标题文本下划线  -->
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Offset="0.0" Color="White" />
+                                    <GradientStop Offset="0.39" Color="{StaticResource MikuGreen}" />
+                                    <GradientStop Offset="0.61" Color="{StaticResource MikuRed}" />
+                                    <GradientStop Offset="1.0" Color="White" />
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <!--  下阴影  -->
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0.0" Color="{StaticResource BackGroundGray}" />
+                                    <GradientStop Offset="1.0" Color="White" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <!--  窗体内容  -->
+                        <Border Grid.Row="2" Padding="{Binding ViewModel.InnerContentPadding}">
+                            <ContentPresenter Content="{TemplateBinding Content}" />
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <Style x:Key="MenuRadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border
+                            x:Name="menuButton"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <!--  Selected  -->
+                                <Border
+                                    x:Name="btnSelected"
+                                    Grid.ColumnSpan="2"
+                                    Width="210"
+                                    HorizontalAlignment="Right"
+                                    CornerRadius="4" />
+
+                                <!--  Indicator  -->
+                                <Rectangle
+                                    Name="Indicator"
+                                    Width="4"
+                                    Height="40"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    RadiusX="2"
+                                    RadiusY="2" />
+
+                                <!--  Icon  -->
+                                <Path
+                                    x:Name="Icon"
+                                    Width="24"
+                                    Height="24"
+                                    Margin="0,0,5,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Data="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}}"
+                                    Fill="#EEEEEE"
+                                    Stretch="None" />
+
+                                <!--  Text  -->
+                                <TextBlock
+                                    x:Name="txtName"
+                                    Grid.Column="1"
+                                    Margin="12,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Text="{TemplateBinding Content}" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="txtName" Property="Foreground" Value="#39c5bb" />
+                                <Setter TargetName="Icon" Property="Fill" Value="#39c5bb" />
+                                <!-- Optional
+                            <Setter TargetName="Indicator" Property="Fill" Value="red" />
+                            <Setter TargetName="Indicator" Property="Height" Value="20" />-->
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Icon" Property="Fill" Value="#39c5bb" />
+                                <Setter TargetName="Indicator" Property="Fill" Value="#39c5bb" />
+                                <Setter TargetName="Indicator" Property="Height" Value="20" />
+                                <Setter TargetName="btnSelected" Property="Background" Value="#EEEEEE" />
+                                <Setter TargetName="txtName" Property="Foreground" Value="#39c5bb" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MenuIconStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True">
+                            <Viewbox
+                                Width="20"
+                                Height="20"
+                                Margin="0,6,0,0"
+                                Stretch="UniformToFill">
+                                <Canvas Width="512" Height="512">
+                                    <Path
+                                        x:Name="ico"
+                                        Margin="0,0,0,0"
+                                        Data="m32 0h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
+                                        Fill="#EEEEEE" />
+                                    <Path
+                                        x:Name="ico1"
+                                        Margin="0,20,0,0"
+                                        Data="m32 128h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
+                                        Fill="#EEEEEE" />
+                                    <Path
+                                        x:Name="ico2"
+                                        Margin="0,40,0,0"
+                                        Data="m32 256h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
+                                        Fill="#EEEEEE" />
+                                </Canvas>
+                            </Viewbox>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="Transparent" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FFFFFF" />
+                                <Setter TargetName="ico" Property="Fill" Value="#39c5bb" />
+                                <Setter TargetName="ico1" Property="Fill" Value="#39c5bb" />
+                                <Setter TargetName="ico2" Property="Fill" Value="#39c5bb" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="Transparent" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FFFFFF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="{Binding ViewModel.CaptionHeight}"
+            CornerRadius="0"
+            GlassFrameThickness="0"
+            ResizeBorderThickness="{Binding ViewModel.ResizeBorderThickness}" />
+    </WindowChrome.WindowChrome>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Frame
+            x:Name="PagesNavigation"
+            Grid.Column="1"
+            Content="{Binding ViewModel.CurrentPage}" />
+    </Grid>
+</Window>

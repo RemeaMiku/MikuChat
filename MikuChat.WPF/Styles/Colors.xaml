@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="MikuGreen">#39c5bb</Color>
+    <Color x:Key="MikuGreenA">#AA39c5bb</Color>
+    <Color x:Key="MikuRed">#e74892</Color>
+    <Color x:Key="MikuRedA">#AAe74892</Color>
+    <Color x:Key="ForeGroundGray">#CDCDCD</Color>
+    <Color x:Key="BackGroundGray">#EFEFEF</Color>
+    <Color x:Key="LightGreen">#44ebdf</Color>
+    <Color x:Key="DarkGreen">#2a928a</Color>
+    <SolidColorBrush x:Key="MikuGreenBrush" Color="{StaticResource MikuGreen}" />
+    <SolidColorBrush x:Key="MikuGreenBrushA" Color="{StaticResource MikuGreenA}" />
+    <SolidColorBrush x:Key="MikuRedBrush" Color="{StaticResource MikuRed}" />
+    <SolidColorBrush x:Key="MikuRedBrushA" Color="{StaticResource MikuRedA}" />
+    <SolidColorBrush x:Key="ForeGroundGrayBrush" Color="{StaticResource ForeGroundGray}" />
+    <SolidColorBrush x:Key="BackGroundGrayBrush" Color="{StaticResource BackGroundGray}" />
+    <SolidColorBrush x:Key="DarkGreenBrush" Color="{StaticResource DarkGreen}" />
+    <SolidColorBrush x:Key="LightGreenBrush" Color="{StaticResource LightGreen}" />
+    <LinearGradientBrush x:Key="MikuGradientBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Offset="0.0" Color="{StaticResource MikuGreen}" />
+        <GradientStop Offset="1.0" Color="{StaticResource MikuRed}" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="MikuGradientBrushA" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Offset="0.0" Color="{StaticResource MikuGreenA}" />
+        <GradientStop Offset="1.0" Color="{StaticResource MikuRedA}" />
+    </LinearGradientBrush>
+</ResourceDictionary>

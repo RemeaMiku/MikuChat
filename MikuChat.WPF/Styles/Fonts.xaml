@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  https://github.com/microsoft/fluentui-system-icons  -->
+    <FontFamily x:Key="FluentSystemIcons">../Assets/Fonts/#FluentSystemIcons-Regular</FontFamily>
+
+    <!--  https://github.com/microsoft/fluentui-system-icons  -->
+    <FontFamily x:Key="FluentSystemIconsFilled">../Assets/Fonts/#FluentSystemIcons-Filled</FontFamily>
+</ResourceDictionary>
