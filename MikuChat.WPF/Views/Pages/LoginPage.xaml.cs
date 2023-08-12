@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace MikuChat.WPF;
 
@@ -36,7 +34,7 @@ public partial class LoginPage : Page
 
     private async void OnLoginButtonClicked(object sender, RoutedEventArgs e)
     {
-        //await contentPanel.DisplaySlideFadeAsync(39, FlowDirection.RightToLeft, FadeMode.FadeOut, new(TimeSpan.FromSeconds(0.39)));
+        await contentPanel.DisplaySlideFadeAsync(39, FlowDirection.RightToLeft, FadeMode.FadeOut, new(TimeSpan.FromSeconds(0.39)));
     }
 
     private void OnPasswordChanged(object sender, RoutedEventArgs e)

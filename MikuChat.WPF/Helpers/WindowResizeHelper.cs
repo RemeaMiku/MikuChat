@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Windows;
+﻿using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Windows.Media;
 
@@ -32,7 +30,7 @@ public enum WindowDockPosition
 /// <summary>
 /// Fixes the issue with Windows of Style <see cref="WindowStyle.None"/> covering the taskbar
 /// </summary>
-public class WindowResizer
+public class WindowResizeHelper
 {
     #region Private Members
 
@@ -98,7 +96,7 @@ public class WindowResizer
     /// </summary>
     /// <param name="window">The window to monitor and correctly maximize</param>
     /// <param name="adjustSize">The callback for the host to adjust the maximum available size if needed</param>
-    public WindowResizer(Window window)
+    public WindowResizeHelper(Window window)
     {
         mWindow = window;
 

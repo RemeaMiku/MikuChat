@@ -1,9 +1,8 @@
-﻿using System.Windows;
-using System.Windows.Media.Animation;
+﻿using System.Windows.Media.Animation;
 
 namespace MikuChat.WPF;
 
-static class Animations
+static class FadeSlideAnimation
 {
     #region Public Methods
 
@@ -47,3 +46,4 @@ static class Animations
 
     #endregion Public Methods
 }
+

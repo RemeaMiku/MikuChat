@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Media.Animation;
-using System.Windows;
 
 namespace MikuChat.WPF;
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using AngleSix;
 
 namespace MikuChat.WPF;
@@ -18,7 +16,7 @@ public partial class MainWindow : Window
         StateChanged += OnWindowStateChanged;
         DataContext = this;
         ViewModel = viewModel;
-        _ = new WindowResizer(this);
+        _ = new WindowResizeHelper(this);
     }
 
     #endregion Public Constructors

@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MikuChat.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DataContext="{d:DesignInstance Type=local:LoginPage}"
+    d:DataContext="{x:Type local:LoginPage}"
     mc:Ignorable="d">
     <Page.Resources>
         <Color x:Key="LoginButtonBackgroundColor">#14b3b3</Color>
@@ -100,6 +100,7 @@
         <Image
             x:Name="background"
             Grid.ColumnSpan="3"
+            Source="../../Assets/Images/login-background.jpg"
             Stretch="UniformToFill" />
         <local:BlurHost
             x:Name="blurHost"
