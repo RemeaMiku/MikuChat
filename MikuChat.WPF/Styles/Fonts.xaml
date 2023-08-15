@@ -9,4 +9,11 @@
 
     <FontFamily x:Key="MicrosoftYaheiUI">Microsoft Yahei UI</FontFamily>
 
+    <Style TargetType="Control">
+        <Setter Property="FontFamily" Value="{StaticResource MicrosoftYaheiUI}" />
+    </Style>
+
+    <Style TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource MicrosoftYaheiUI}" />
+    </Style>
 </ResourceDictionary>

@@ -35,4 +35,8 @@
     <Resource Include="Assets\Fonts\SEGMDL2.TTF" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
