@@ -15,7 +15,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition
                 Width="300"
-                MinWidth="55"
+                MinWidth="250"
                 MaxWidth="500" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -23,6 +23,6 @@
         <local:SideMenu>
             <local:ChatList />
         </local:SideMenu>
-
+        <GridSplitter Width="1" HorizontalAlignment="Right" />
     </Grid>
 </Page>

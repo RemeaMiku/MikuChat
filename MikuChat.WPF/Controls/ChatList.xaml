@@ -9,16 +9,17 @@
     d:DesignWidth="300"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <Storyboard x:Key="OnMouseEnterBackgroundStoryboard">
             <ColorAnimation
                 Storyboard.TargetProperty="Background.Color"
-                To="#E7F5F5"
+                To="{StaticResource BackgroundGray}"
                 Duration="0:0:0.3" />
         </Storyboard>
         <Storyboard x:Key="OnMouseLeaveBackgroundStoryboard">
             <ColorAnimation
                 Storyboard.TargetProperty="Background.Color"
-                To="White"
+                To="Transparent"
                 Duration="0:0:0.3" />
         </Storyboard>
         <x:Array x:Key="Chats" Type="local:ChatItemViewModel">
@@ -26,16 +27,20 @@
                 Name="初音ミク"
                 Background="{StaticResource MikuGreenBrush}"
                 InitialText="ミク"
+                IsUnread="True"
                 Message="日本に来る時はぜひ連絡しておいてね！お迎えに行くから" />
             <local:ChatItemViewModel
                 Name="神楽めあ"
                 Background="{StaticResource MeaBlueBrush}"
                 InitialText="めあ"
+                IsUnread="False"
                 Message="お金を貸してくれよ" />
             <local:ChatItemViewModel
                 Name="孙逸和"
                 Background="{StaticResource MikuRedBrushA}"
                 InitialText="逸和"
+                IsSelected="True"
+                IsUnread="True"
                 Message="最近怎么样" />
             <local:ChatItemViewModel
                 Name="Microsoft .NET Plaform"
@@ -46,16 +51,19 @@
                 Name="初音ミク"
                 Background="{StaticResource MikuGreenBrush}"
                 InitialText="ミク"
+                IsUnread="True"
                 Message="日本に来る時はぜひ連絡しておいてね！お迎えに行くから" />
             <local:ChatItemViewModel
                 Name="神楽めあ"
                 Background="{StaticResource MeaBlueBrush}"
                 InitialText="めあ"
+                IsUnread="False"
                 Message="お金を貸してくれよ" />
             <local:ChatItemViewModel
                 Name="孙逸和"
                 Background="{StaticResource MikuRedBrushA}"
                 InitialText="逸和"
+                IsUnread="True"
                 Message="最近怎么样" />
             <local:ChatItemViewModel
                 Name="Microsoft .NET Plaform"
@@ -66,16 +74,19 @@
                 Name="初音ミク"
                 Background="{StaticResource MikuGreenBrush}"
                 InitialText="ミク"
+                IsUnread="True"
                 Message="日本に来る時はぜひ連絡しておいてね！お迎えに行くから" />
             <local:ChatItemViewModel
                 Name="神楽めあ"
                 Background="{StaticResource MeaBlueBrush}"
                 InitialText="めあ"
+                IsUnread="False"
                 Message="お金を貸してくれよ" />
             <local:ChatItemViewModel
                 Name="孙逸和"
                 Background="{StaticResource MikuRedBrushA}"
                 InitialText="逸和"
+                IsUnread="True"
                 Message="最近怎么样" />
             <local:ChatItemViewModel
                 Name="Microsoft .NET Plaform"
@@ -87,61 +98,68 @@
             <ContentControl>
                 <ContentControl.Template>
                     <ControlTemplate TargetType="ContentControl">
-                        <Grid x:Name="Container" Background="White">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Rectangle
-                                Width="5"
-                                HorizontalAlignment="Left"
-                                Fill="{StaticResource MikuRedBrush}" />
-                            <Border
-                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                Margin="10,5,5,5"
-                                Padding="5"
-                                Background="{Binding Background}"
-                                CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
-                                <Viewbox>
+                        <Border
+                            x:Name="Border"
+                            Background="White"
+                            BorderThickness="0">
+                            <Grid Height="70" Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Rectangle
+                                    Width="5"
+                                    HorizontalAlignment="Left"
+                                    Fill="{StaticResource MikuRedBrush}"
+                                    Visibility="{Binding IsUnread, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <Border
+                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                    Margin="10"
+                                    Background="{Binding Background}"
+                                    CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                                    <Viewbox>
+                                        <TextBlock
+                                            Foreground="White"
+                                            Style="{StaticResource CenterText}"
+                                            Text="{Binding InitialText}" />
+                                    </Viewbox>
+                                </Border>
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Margin="5"
+                                    VerticalAlignment="Center"
+                                    Orientation="Vertical">
                                     <TextBlock
-                                        Foreground="White"
-                                        Style="{StaticResource CenterText}"
-                                        Text="{Binding InitialText}" />
-                                </Viewbox>
-                            </Border>
-                            <StackPanel
-                                Grid.Column="1"
-                                Margin="5"
-                                VerticalAlignment="Center"
-                                Orientation="Vertical">
-                                <TextBlock
-                                    FontSize="18"
-                                    Foreground="{Binding Background}"
-                                    Text="{Binding Name}"
-                                    TextTrimming="CharacterEllipsis" />
-                                <TextBlock
-                                    FontSize="14"
-                                    Text="{Binding Message}"
-                                    TextTrimming="CharacterEllipsis" />
-                            </StackPanel>
-                            <Grid.Triggers>
-                                <EventTrigger RoutedEvent="MouseEnter">
-                                    <BeginStoryboard Storyboard="{StaticResource OnMouseEnterBackgroundStoryboard}" />
-                                </EventTrigger>
-                                <EventTrigger RoutedEvent="MouseLeave">
-                                    <BeginStoryboard Storyboard="{StaticResource OnMouseLeaveBackgroundStoryboard}" />
-                                </EventTrigger>
-                            </Grid.Triggers>
-                        </Grid>
-                        <ControlTemplate.Triggers />
+                                        FontSize="16"
+                                        Foreground="{Binding Background}"
+                                        Text="{Binding Name}"
+                                        TextTrimming="CharacterEllipsis" />
+                                    <TextBlock
+                                        FontSize="14"
+                                        Text="{Binding Message}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+                                <Grid.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter">
+                                        <BeginStoryboard Storyboard="{StaticResource OnMouseEnterBackgroundStoryboard}" />
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard Storyboard="{StaticResource OnMouseLeaveBackgroundStoryboard}" />
+                                    </EventTrigger>
+                                </Grid.Triggers>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundGrayBrush}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </ContentControl.Template>
             </ContentControl>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid Background="White">
-        <ScrollViewer IsDeferredScrollingEnabled="True" VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemTemplate="{StaticResource ChatItemTemplate}" ItemsSource="{StaticResource Chats}" />
-        </ScrollViewer>
-    </Grid>
+    <ScrollViewer IsDeferredScrollingEnabled="True" VerticalScrollBarVisibility="Auto">
+        <ItemsControl ItemTemplate="{StaticResource ChatItemTemplate}" ItemsSource="{StaticResource Chats}" />
+    </ScrollViewer>
 </UserControl>

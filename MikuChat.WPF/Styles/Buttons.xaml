@@ -61,10 +61,10 @@
         x:Key="WindowMaximizeButton"
         BasedOn="{StaticResource WindowControlButton}"
         TargetType="Button">
-        <Setter Property="Foreground" Value="{StaticResource ForeGroundGrayBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundGrayBrush}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource BackGroundGrayBrush}" />
+                <Setter Property="Background" Value="{StaticResource BackgroundGrayBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>

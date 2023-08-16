@@ -17,4 +17,8 @@ public partial class ChatItemViewModel : ObservableObject
         G = 0xc5,
         B = 0xbb
     });
+    [ObservableProperty]
+    bool _isUnread = true;
+    [ObservableProperty]
+    bool _isSelected = false;
 }

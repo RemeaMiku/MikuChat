@@ -3,8 +3,8 @@
     <Color x:Key="MikuGreenA">#AA39c5bb</Color>
     <Color x:Key="MikuRed">#e74892</Color>
     <Color x:Key="MikuRedA">#AAe74892</Color>
-    <Color x:Key="ForeGroundGray">#CDCDCD</Color>
-    <Color x:Key="BackGroundGray">#EFEFEF</Color>
+    <Color x:Key="ForegroundGray">#CDCDCD</Color>
+    <Color x:Key="BackgroundGray">#EFEFEF</Color>
     <Color x:Key="LightGreen">#44ebdf</Color>
     <Color x:Key="DarkGreen">#2a928a</Color>
     <Color x:Key="DarkBlack">#393939</Color>
@@ -13,8 +13,8 @@
     <SolidColorBrush x:Key="MikuGreenBrushA" Color="{StaticResource MikuGreenA}" />
     <SolidColorBrush x:Key="MikuRedBrush" Color="{StaticResource MikuRed}" />
     <SolidColorBrush x:Key="MikuRedBrushA" Color="{StaticResource MikuRedA}" />
-    <SolidColorBrush x:Key="ForeGroundGrayBrush" Color="{StaticResource ForeGroundGray}" />
-    <SolidColorBrush x:Key="BackGroundGrayBrush" Color="{StaticResource BackGroundGray}" />
+    <SolidColorBrush x:Key="ForegroundGrayBrush" Color="{StaticResource ForegroundGray}" />
+    <SolidColorBrush x:Key="BackgroundGrayBrush" Color="{StaticResource BackgroundGray}" />
     <SolidColorBrush x:Key="DarkGreenBrush" Color="{StaticResource DarkGreen}" />
     <SolidColorBrush x:Key="LightGreenBrush" Color="{StaticResource LightGreen}" />
     <SolidColorBrush x:Key="DarkBlackBrush" Color="{StaticResource DarkBlack}" />
