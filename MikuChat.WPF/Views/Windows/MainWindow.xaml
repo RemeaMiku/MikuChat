@@ -12,6 +12,7 @@
     MinHeight="560"
     d:DataContext="{x:Type local:MainWindow}"
     AllowsTransparency="True"
+    StateChanged="OnWindowStateChanged"
     Template="{DynamicResource LXWindowTemplate}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -97,14 +98,14 @@
                                 Grid.ColumnSpan="3"
                                 Margin="0">
                                 <StackPanel>
-                                    <TextBlock Margin="0,0,0,-3" FontFamily="Microsoft Yahei Light">
+                                    <TextBlock Margin="0,0,0,-3">
                                         <Run Foreground="{StaticResource MikuGreenBrush}" Text="Miku" /><Run Foreground="{StaticResource MikuRedBrush}" Text="Chat" />
                                     </TextBlock>
                                     <TextBlock
                                         HorizontalAlignment="Center"
                                         FontSize="5"
-                                        Foreground="#DDDDDD"
-                                        Text="By RemeaMiku" />
+                                        Foreground="{StaticResource ForegroundGrayBrush}"
+                                        Text="RemeaMiku" />
                                 </StackPanel>
                             </Viewbox>
                             <!--  窗口按钮  -->
@@ -115,8 +116,9 @@
                                     Foreground="{StaticResource MikuGreenBrush}"
                                     Style="{StaticResource ChromeButtonStyle}" />
                                 <Button
+                                    d:Content="&#xE922;"
                                     Click="OnMaximizeButtonClicked"
-                                    Content="&#xE922;"
+                                    Content="{Binding ViewModel.MaximizeButtonContent}"
                                     Foreground="{StaticResource ForegroundGrayBrush}"
                                     Style="{StaticResource ChromeButtonStyle}" />
                                 <Button

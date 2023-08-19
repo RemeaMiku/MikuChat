@@ -26,7 +26,9 @@ public partial class MainWindowViewModel : ObservableObject
 
     #endregion Public Properties
 
-    #region Private Fields    
+    #region Private Fields
+    [ObservableProperty]
+    public string _maximizeButtonContent = "\uE922";
     [ObservableProperty]
     Page _currentPage = App.Current.ServiceProvider.GetRequiredService<ChatPage>();
     [ObservableProperty]

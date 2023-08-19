@@ -159,7 +159,7 @@
             </ContentControl>
         </DataTemplate>
     </UserControl.Resources>
-    <ScrollViewer IsDeferredScrollingEnabled="True" VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <ItemsControl ItemTemplate="{StaticResource ChatItemTemplate}" ItemsSource="{StaticResource Chats}" />
     </ScrollViewer>
 </UserControl>
