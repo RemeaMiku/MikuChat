@@ -6,6 +6,8 @@
     xmlns:local="clr-namespace:MikuChat.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DataContext="{x:Type local:LoginPage}"
+    d:DesignHeight="500"
+    d:DesignWidth="850"
     mc:Ignorable="d">
     <Page.Resources>
         <Color x:Key="LoginButtonBackgroundColor">#14b3b3</Color>
@@ -30,8 +32,8 @@
             ShadowDepth="0"
             Color="{StaticResource MikuGreenA}" />
         <Style TargetType="Label">
-            <Setter Property="Margin" Value="33,30,39,0" />
-            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Margin" Value="33,20,39,0" />
+            <Setter Property="FontSize" Value="20" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -67,19 +69,25 @@
             </Style.Triggers>
         </Style>
         <Style
-            x:Key="LoginButtonStyle"
+            x:Key="CommonButtonStyle"
             BasedOn="{StaticResource HoverlessButton}"
             TargetType="{x:Type Button}">
-            <Setter Property="Content" Value="登录" />
             <Setter Property="Padding" Value="30,10" />
             <Setter Property="Margin" Value="20,39,20,10" />
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="Background" Value="{StaticResource LoginButtonBackgroundBrush}" />
             <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="{StaticResource LoginButtonBackgroundBrush}" />
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard Storyboard="{StaticResource OnMouseEnterBackgroundStoryboard}" />
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard Storyboard="{StaticResource OnMouseLeaveBackgroundStoryboard}" />
+                </EventTrigger>
+            </Style.Triggers>
         </Style>
         <Style
-            x:Key="RegisterButtonStyle"
-            x:Name="registerButton"
+            x:Key="NavigateToRegisterButtonStyle"
             BasedOn="{StaticResource HoverlessButton}"
             TargetType="{x:Type Button}">
             <Setter Property="Content" Value="尚无账号？点此注册" />
@@ -90,6 +98,15 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="TitleLabelStyle" TargetType="Label">
+            <Setter Property="Margin" Value="39,30,0,0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="30" />
+        </Style>
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -98,17 +115,18 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Image
-            x:Name="background"
+            x:Name="BackgroundImage"
             Grid.ColumnSpan="3"
             Source="../../Assets/Images/login-background.jpg"
             Stretch="UniformToFill" />
         <local:BlurHost
-            x:Name="blurHost"
+            x:Name="Host"
             Grid.Column="1"
             Width="390"
+            Height="450"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            BlurBackground="{Binding ElementName=background}"
+            BlurBackground="{Binding ElementName=BackgroundImage}"
             BlurOpacity="0.39"
             BorderThickness="0">
             <Border
@@ -116,38 +134,53 @@
                 Background="#44000000"
                 BorderBrush="#55FFFFFF"
                 BorderThickness="2">
-                <StackPanel x:Name="contentPanel">
-                    <Label
-                        Margin="39,30,0,-20"
-                        Padding="0,10"
-                        HorizontalAlignment="Left"
-                        HorizontalContentAlignment="Left"
-                        Content="登录至你的账户"
-                        FontSize="30"
-                        FontWeight="Bold" />
-                    <Label Content="用户名" />
-                    <TextBox
-                        x:Name="UserNameBox"
-                        local:TextBoxAttachedProperties.PlaceholderText="{Binding ViewModel.Username, Mode=OneTime}"
-                        Text="{Binding ViewModel.Username, Mode=OneWayToSource}" />
-                    <Label Content="密码" />
-                    <PasswordBox PasswordChanged="OnPasswordChanged" />
-                    <Button
-                        x:Name="LoginButton"
-                        Click="OnLoginButtonClicked"
-                        Command="{Binding ViewModel.LoginCommand}"
-                        Style="{StaticResource LoginButtonStyle}">
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="MouseEnter">
-                                <BeginStoryboard Storyboard="{StaticResource OnMouseEnterBackgroundStoryboard}" />
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="MouseLeave">
-                                <BeginStoryboard Storyboard="{StaticResource OnMouseLeaveBackgroundStoryboard}" />
-                            </EventTrigger>
-                        </Button.Triggers>
-                    </Button>
-                    <Button Style="{StaticResource RegisterButtonStyle}" />
-                </StackPanel>
+                <Grid x:Name="Container">
+                    <StackPanel
+                        x:Name="LoginPanel"
+                        VerticalAlignment="Center"
+                        d:Visibility="Hidden">
+                        <Label Content="登录至你的账户" Style="{StaticResource TitleLabelStyle}" />
+                        <Label Content="邮箱" />
+                        <TextBox
+                            x:Name="UserNameBox"
+                            local:TextBoxAttachedProperties.PlaceholderText="{Binding ViewModel.Username, Mode=OneTime}"
+                            Text="{Binding ViewModel.Username, Mode=OneWayToSource}" />
+                        <Label Content="密码" />
+                        <PasswordBox PasswordChanged="OnPasswordChanged" />
+                        <Button
+                            x:Name="LoginButton"
+                            Click="OnLoginButtonClicked"
+                            Command="{Binding ViewModel.LoginCommand}"
+                            Content="登录"
+                            Style="{StaticResource CommonButtonStyle}" />
+                        <Button
+                            x:Name="NavigateToRegisterButton"
+                            Click="OnNavigateToRegisterButtonClicked"
+                            Style="{StaticResource NavigateToRegisterButtonStyle}" />
+                    </StackPanel>
+                    <ScrollViewer
+                        x:Name="RegisterPanel"
+                        d:Visibility="Visible"
+                        VerticalScrollBarVisibility="Auto"
+                        Visibility="Hidden">
+                        <StackPanel VerticalAlignment="Center">
+                            <Label Content="注册新账户" Style="{StaticResource TitleLabelStyle}" />
+                            <Label Content="用户名" />
+                            <TextBox />
+                            <Label Content="用户名简写" />
+                            <TextBox />
+                            <Label Content="邮箱" />
+                            <TextBox />
+                            <Label Content="密码" />
+                            <PasswordBox PasswordChanged="OnPasswordChanged" />
+                            <Button
+                                Click="OnLoginButtonClicked"
+                                Command="{Binding ViewModel.LoginCommand}"
+                                Content="注册"
+                                Style="{StaticResource CommonButtonStyle}" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
             </Border>
         </local:BlurHost>
     </Grid>

@@ -13,7 +13,7 @@ static class FadeSlideAnimation
             (startMargin.Left, startMargin.Right) = (startMargin.Right, startMargin.Left);
         var ease = new QuadraticEase
         {
-            EasingMode = EasingMode.EaseInOut
+            EasingMode = EasingMode.EaseOut
         };
         var slideAnimation = new ThicknessAnimation(startMargin, oldMargin, duration)
         {

@@ -29,12 +29,12 @@ public partial class LoginPage : Page
 
     private async void OnPageLoaded(object sender, RoutedEventArgs e)
     {
-        await contentPanel.DisplaySlideFadeAsync(39, FlowDirection.RightToLeft, FadeMode.FadeIn, new(TimeSpan.FromSeconds(0.39)));
+        await LoginPanel.DisplaySlideFadeAsync(39, FlowDirection.RightToLeft, FadeMode.FadeIn, new(TimeSpan.FromSeconds(0.39)));
     }
 
     private async void OnLoginButtonClicked(object sender, RoutedEventArgs e)
     {
-        await contentPanel.DisplaySlideFadeAsync(39, FlowDirection.RightToLeft, FadeMode.FadeOut, new(TimeSpan.FromSeconds(0.39)));
+        await LoginPanel.DisplaySlideFadeAsync(39, FlowDirection.RightToLeft, FadeMode.FadeOut, new(TimeSpan.FromSeconds(0.39)));
     }
 
     private void OnPasswordChanged(object sender, RoutedEventArgs e)
@@ -42,4 +42,11 @@ public partial class LoginPage : Page
 
     #endregion Private Methods
 
+    private async void OnNavigateToRegisterButtonClicked(object sender, RoutedEventArgs e)
+    {
+        await LoginPanel.DisplaySlideFadeAsync(39, FlowDirection.RightToLeft, FadeMode.FadeOut, new(TimeSpan.FromSeconds(0.39)));
+        LoginPanel.Visibility = Visibility.Hidden;
+        RegisterPanel.Visibility = Visibility.Visible;
+        await RegisterPanel.DisplaySlideFadeAsync(39, FlowDirection.RightToLeft, FadeMode.FadeIn, new(TimeSpan.FromSeconds(0.39)));
+    }
 }

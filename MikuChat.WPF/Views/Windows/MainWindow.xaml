@@ -17,6 +17,32 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
+        <Storyboard x:Key="OnMouseEnterBackgroundStoryboard">
+            <ColorAnimation
+                Storyboard.TargetProperty="Background.Color"
+                To="{StaticResource BackgroundGray}"
+                Duration="0:0:0.3" />
+        </Storyboard>
+        <Storyboard x:Key="OnMouseLeaveBackgroundStoryboard">
+            <ColorAnimation
+                Storyboard.TargetProperty="Background.Color"
+                To="Transparent"
+                Duration="0:0:0.3" />
+        </Storyboard>
+        <Style
+            x:Key="ChromeButtonStyle"
+            BasedOn="{StaticResource IconButtonStyle}"
+            TargetType="{x:Type Button}">
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard Storyboard="{StaticResource OnMouseEnterBackgroundStoryboard}" />
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard Storyboard="{StaticResource OnMouseLeaveBackgroundStoryboard}" />
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
         <ControlTemplate x:Key="LXWindowTemplate" TargetType="Window">
             <!--  窗体外边界  -->
             <Border Padding="{Binding ViewModel.OuterMarginSizeThickness, FallbackValue=10}">
@@ -85,16 +111,19 @@
                             <StackPanel Grid.Column="2" Orientation="Horizontal">
                                 <Button
                                     Click="OnMinimizeButtonClicked"
-                                    Content="_"
-                                    Style="{StaticResource WindowMinimizeButton}" />
+                                    Content="&#xE921;"
+                                    Foreground="{StaticResource MikuGreenBrush}"
+                                    Style="{StaticResource ChromeButtonStyle}" />
                                 <Button
                                     Click="OnMaximizeButtonClicked"
-                                    Content="[ ]"
-                                    Style="{StaticResource WindowMaximizeButton}" />
+                                    Content="&#xE922;"
+                                    Foreground="{StaticResource ForegroundGrayBrush}"
+                                    Style="{StaticResource ChromeButtonStyle}" />
                                 <Button
                                     Click="OnCloseButtonClicked"
-                                    Content="X"
-                                    Style="{StaticResource WindowCloseButton}" />
+                                    Content="&#xE8BB;"
+                                    Foreground="{StaticResource MikuRedBrush}"
+                                    Style="{StaticResource ChromeButtonStyle}" />
                             </StackPanel>
                         </Grid>
                         <!--  阴影  -->
@@ -127,142 +156,6 @@
                 </Grid>
             </Border>
         </ControlTemplate>
-        <Style x:Key="MenuRadioButtonStyle" TargetType="{x:Type RadioButton}">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="Gray" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="FontWeight" Value="Normal" />
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="Height" Value="40" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type RadioButton}">
-                        <Border
-                            x:Name="menuButton"
-                            Background="{TemplateBinding Background}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="45" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-
-                                <!--  Selected  -->
-                                <Border
-                                    x:Name="btnSelected"
-                                    Grid.ColumnSpan="2"
-                                    Width="210"
-                                    HorizontalAlignment="Right"
-                                    CornerRadius="4" />
-
-                                <!--  Indicator  -->
-                                <Rectangle
-                                    Name="Indicator"
-                                    Width="4"
-                                    Height="40"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    RadiusX="2"
-                                    RadiusY="2" />
-
-                                <!--  Icon  -->
-                                <Path
-                                    x:Name="Icon"
-                                    Width="24"
-                                    Height="24"
-                                    Margin="0,0,5,0"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Data="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}}"
-                                    Fill="#EEEEEE"
-                                    Stretch="None" />
-
-                                <!--  Text  -->
-                                <TextBlock
-                                    x:Name="txtName"
-                                    Grid.Column="1"
-                                    Margin="12,0,0,0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    FontWeight="{TemplateBinding FontWeight}"
-                                    Foreground="{TemplateBinding Foreground}"
-                                    Text="{TemplateBinding Content}" />
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="txtName" Property="Foreground" Value="#39c5bb" />
-                                <Setter TargetName="Icon" Property="Fill" Value="#39c5bb" />
-                                <!-- Optional
-                            <Setter TargetName="Indicator" Property="Fill" Value="red" />
-                            <Setter TargetName="Indicator" Property="Height" Value="20" />-->
-                            </Trigger>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Icon" Property="Fill" Value="#39c5bb" />
-                                <Setter TargetName="Indicator" Property="Fill" Value="#39c5bb" />
-                                <Setter TargetName="Indicator" Property="Height" Value="20" />
-                                <Setter TargetName="btnSelected" Property="Background" Value="#EEEEEE" />
-                                <Setter TargetName="txtName" Property="Foreground" Value="#39c5bb" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="MenuIconStyle" TargetType="{x:Type ToggleButton}">
-            <Setter Property="Width" Value="30" />
-            <Setter Property="Height" Value="30" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Border
-                            x:Name="border"
-                            Background="{TemplateBinding Background}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            SnapsToDevicePixels="True">
-                            <Viewbox
-                                Width="20"
-                                Height="20"
-                                Margin="0,6,0,0"
-                                Stretch="UniformToFill">
-                                <Canvas Width="512" Height="512">
-                                    <Path
-                                        x:Name="ico"
-                                        Margin="0,0,0,0"
-                                        Data="m32 0h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
-                                        Fill="#EEEEEE" />
-                                    <Path
-                                        x:Name="ico1"
-                                        Margin="0,20,0,0"
-                                        Data="m32 128h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
-                                        Fill="#EEEEEE" />
-                                    <Path
-                                        x:Name="ico2"
-                                        Margin="0,40,0,0"
-                                        Data="m32 256h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
-                                        Fill="#EEEEEE" />
-                                </Canvas>
-                            </Viewbox>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="Transparent" />
-                                <Setter TargetName="border" Property="BorderBrush" Value="#FFFFFF" />
-                                <Setter TargetName="ico" Property="Fill" Value="#39c5bb" />
-                                <Setter TargetName="ico1" Property="Fill" Value="#39c5bb" />
-                                <Setter TargetName="ico2" Property="Fill" Value="#39c5bb" />
-                            </Trigger>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="Transparent" />
-                                <Setter TargetName="border" Property="BorderBrush" Value="#FFFFFF" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome

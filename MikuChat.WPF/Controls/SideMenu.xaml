@@ -37,7 +37,6 @@
             x:Key="MenuButtonStyle"
             BasedOn="{StaticResource IconButtonStyle}"
             TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="Transparent" />
             <Setter Property="Width" Value="50" />
             <Setter Property="Height" Value="{Binding Width, RelativeSource={RelativeSource Self}}" />
             <Setter Property="Foreground" Value="White" />

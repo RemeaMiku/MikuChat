@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
 using AngleSix;
 
 namespace MikuChat.WPF;
@@ -56,14 +57,25 @@ public partial class MainWindow : Window
     }
     private void OnMinimizeButtonClicked(object sender, RoutedEventArgs e)
         => WindowState = WindowState.Minimized;
+
+
+
     private void OnMaximizeButtonClicked(object sender, RoutedEventArgs e)
     {
+        const string chromeMaximizeGlyph = "\uE922";
+        const string chromeRestoreGlyph = "\uE923";
+        var button = sender as Button;
         if (WindowState == WindowState.Maximized)
+        {
             WindowState = WindowState.Normal;
+            button!.Content = chromeMaximizeGlyph;
+        }
         else
+        {
             WindowState = WindowState.Maximized;
+            button!.Content = chromeRestoreGlyph;
+        }
     }
-
     private void OnCloseButtonClicked(object sender, RoutedEventArgs e)
         => Close();
     private void OnIconButtonClicked(object sender, RoutedEventArgs e)
