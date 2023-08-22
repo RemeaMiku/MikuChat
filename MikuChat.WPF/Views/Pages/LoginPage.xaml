@@ -117,7 +117,7 @@
         <Image
             x:Name="BackgroundImage"
             Grid.ColumnSpan="3"
-            Source="../../Assets/Images/login-background.jpg"
+            Source="../../Assets/Images/login-background.png"
             Stretch="UniformToFill" />
         <local:BlurHost
             x:Name="Host"

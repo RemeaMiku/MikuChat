@@ -36,14 +36,14 @@
                 IsUnread="False"
                 Message="お金を貸してくれよ" />
             <local:ChatItemViewModel
-                Name="孙逸和"
+                Name="刘雯雯"
                 Background="{StaticResource MikuRedBrushA}"
-                InitialText="逸和"
+                InitialText="雯雯"
                 IsSelected="True"
                 IsUnread="True"
                 Message="最近怎么样" />
             <local:ChatItemViewModel
-                Name="Microsoft .NET Plaform"
+                Name="Microsoft .NET Team"
                 Background="#5a2c8d"
                 InitialText=".NET"
                 Message="Welcome to Microsoft and become a part of our team!" />

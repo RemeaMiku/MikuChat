@@ -37,6 +37,7 @@
             x:Key="MenuButtonStyle"
             BasedOn="{StaticResource IconButtonStyle}"
             TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="-1" />
             <Setter Property="Width" Value="50" />
             <Setter Property="Height" Value="{Binding Width, RelativeSource={RelativeSource Self}}" />
             <Setter Property="Foreground" Value="White" />
@@ -66,7 +67,10 @@
                     </Grid.ColumnDefinitions>
                     <Border Grid.ColumnSpan="4" />
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="{StaticResource ChatIcon}" Style="{StaticResource MenuButtonStyle}" />
+                        <Button
+                            Background="{StaticResource DarkGreenBrush}"
+                            Content="{StaticResource ChatIcon}"
+                            Style="{StaticResource MenuButtonStyle}" />
                         <Button Content="{StaticResource ContactIcon}" Style="{StaticResource MenuButtonStyle}" />
                         <Button Content="{StaticResource PictureIcon}" Style="{StaticResource MenuButtonStyle}" />
                     </StackPanel>
